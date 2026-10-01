@@ -4,6 +4,15 @@ from fastapi import FastAPI
 from pydantic import BaseModel, Field
 from typing import Literal
 from fastapi.middleware.cors import CORSMiddleware
+import collections
+import sklearn.compose._column_transformer
+
+# Compatibility patch for unpickling models saved with scikit-learn 1.6.x on newer scikit-learn versions
+if not hasattr(sklearn.compose._column_transformer, '_RemainderColsList'):
+    class _RemainderColsList(collections.UserList):
+        def __init__(self, columns, *args, **kwargs):
+            super().__init__(columns)
+    sklearn.compose._column_transformer._RemainderColsList = _RemainderColsList
 
 model = joblib.load('Mental_Health_Model.pkl')
 top_countries = ['Other','India','USA','Canada','Australia','UK','Germany','Mexico','Turkey','France']
