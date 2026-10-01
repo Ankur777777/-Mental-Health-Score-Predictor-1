@@ -1,7 +1,7 @@
 (() => {
   "use strict";
 
-  const API_BASE = "http://0.0.0.0:8000/";
+  const API_BASE = "https://mental-health-score-predictor-1-2.onrender.com/";
 
   const form = document.getElementById("predict-form");
   const submitBtn = document.getElementById("submit-btn");
